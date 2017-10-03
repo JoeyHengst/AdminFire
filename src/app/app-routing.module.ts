@@ -1,48 +1,34 @@
+import { AuthGuard } from './guards/auth.guard';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import {
-  NbAuthComponent,
-  NbLoginComponent,
-  NbLogoutComponent,
-  NbRegisterComponent,
-  NbRequestPasswordComponent,
-  NbResetPasswordComponent,
-} from '@nebular/auth';
+import { SessionComponent } from './session/session.component';
+import { RegisterComponent } from './session/register/register.component';
+import { LoginComponent } from './session/login/login.component';
+import { ForgotPasswordComponent } from './session/forgot-password/forgot-password.component';
 
 const routes: Routes = [
-  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
   {
     path: 'auth',
-    component: NbAuthComponent,
+    component: SessionComponent,
     children: [
       {
         path: '',
-        component: NbLoginComponent,
+        component: LoginComponent
       },
       {
+        path: 'forgot',
+        component: ForgotPasswordComponent
+      }, {
         path: 'login',
-        component: NbLoginComponent,
-      },
-      {
+        component: LoginComponent
+      }, {
         path: 'register',
-        component: NbRegisterComponent,
-      },
-      {
-        path: 'logout',
-        component: NbLogoutComponent,
-      },
-      {
-        path: 'request-password',
-        component: NbRequestPasswordComponent,
-      },
-      {
-        path: 'reset-password',
-        component: NbResetPasswordComponent,
-      },
-    ],
+        component: RegisterComponent
+      }]
   },
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule', canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '**', redirectTo: 'auth' }
 ];
 
 const config: ExtraOptions = {
