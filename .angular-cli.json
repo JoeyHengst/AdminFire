@@ -5,8 +5,8 @@
   },
   "apps": [
     {
-      "root": "src",
-      "outDir": "dist",
+      "root": "apps/admin-fire/src",
+      "outDir": "dist/apps/admin-fire",
       "assets": [
         "assets",
         "favicon.ico",
@@ -20,9 +20,9 @@
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
-      "test": "test.ts",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "tsconfig.spec.json",
+      "test": "../../../test.js",
+      "tsconfig": "../../../tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "../node_modules/typeface-exo/index.css",
@@ -35,14 +35,14 @@
         "../node_modules/ngx-toastr/toastr.css"
       ],
       "scripts": [
-        "../node_modules/tinymce/tinymce.min.js",
-        "../node_modules/tinymce/themes/modern/theme.min.js",
-        "../node_modules/tinymce/plugins/link/plugin.min.js",
-        "../node_modules/tinymce/plugins/paste/plugin.min.js",
-        "../node_modules/tinymce/plugins/table/plugin.min.js",
-        "./assets/vendors/echarts.min.js",
-        "./assets/vendors/echarts.world.min.js",
-        "../node_modules/chart.js/dist/Chart.min.js"
+        "../../../node_modules/tinymce/tinymce.min.js",
+        "../../../node_modules/tinymce/themes/modern/theme.min.js",
+        "../../../node_modules/tinymce/plugins/link/plugin.min.js",
+        "../../../node_modules/tinymce/plugins/paste/plugin.min.js",
+        "../../../node_modules/tinymce/plugins/table/plugin.min.js",
+        "../../assets/vendors/echarts.min.js",
+        "../../assets/vendors/echarts.world.min.js",
+        "../../../node_modules/chart.js/dist/Chart.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -58,14 +58,13 @@
   },
   "lint": [
     {
-      "files": "src/**/*.ts",
-      "project": "src/tsconfig.app.json"
+      "project": "./tsconfig.app.json"
     },
     {
-      "project": "src/tsconfig.spec.json"
+      "project": "./tsconfig.spec.json"
     },
     {
-      "project": "e2e/tsconfig.e2e.json"
+      "project": "./tsconfig.e2e.json"
     }
   ],
   "test": {
@@ -75,6 +74,14 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "component": {}
+    "component": {},
+    "schematics": {
+      "collection": "@nrwl/schematics",
+      "postGenerate": "npm run format",
+      "newProject": [
+        "app",
+        "lib"
+      ]
+    }
   }
 }

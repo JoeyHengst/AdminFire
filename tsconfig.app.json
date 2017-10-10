@@ -1,9 +1,9 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
     "module": "es2015",
-    "baseUrl": "",
+    "baseUrl": ".",
     "types": [],
     "paths": {
       "@angular/*": [
@@ -14,11 +14,17 @@
       ],
       "rxjs/*": [
         "../node_modules/rxjs/*"
+      ],
+      "@admin-fire/*": [
+        "libs/*"
       ]
     }
   },
   "exclude": [
     "test.ts",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "**/*.e2e-spec.ts",
+    "node_modules",
+    "tmp"
   ]
 }

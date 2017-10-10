@@ -26,12 +26,12 @@ export class UserService {
 
     /// Get Data
     getUsers(name: string) {
-        return this.db.list('users')
+        return this.db.list('users').valueChanges();
     }
     getUser(key) {
-        return this.db.object('users' + '/' + key)
+        return this.db.object('users' + '/' + key).valueChanges();
     }
-    
+
     /// check and update Username
     get hasUsername() {
         return this.currentUser.username ? true : false
@@ -39,7 +39,11 @@ export class UserService {
 
     checkUsername(username: string) {
         username = username.toLowerCase()
-        return this.db.object(`usernames/${username}`)
+        return this.db.object(`usernames/${username}`).snapshotChanges().map(action => {
+            const $key = action.payload.key;
+            const data = { $key, ...action.payload.val() };            
+            return data;
+          })
     }
 
     updateUsername(username: string) {

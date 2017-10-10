@@ -127,5 +127,12 @@
     "no-access-missing-member": true,
     "templates-use-public": true,
     "invoke-injectable": true
-  }
+  },
+  "nx-enforce-module-boundaries": [
+    true,
+    {
+      "npmScope": "admin-fire",
+      "lazyLoad": []
+    }
+  ]
 }

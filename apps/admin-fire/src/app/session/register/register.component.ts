@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { AuthService } from './../../@core/auth.service';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
@@ -19,15 +20,18 @@ export class RegisterComponent {
     errors: string[] = [];
     messages: string[] = [];
     user: any = {};
-    public form: FormGroup;    
+    public form: FormGroup;
+    usernameText: string;
+    usernameAvailable: boolean;
 
-    constructor(protected auth: AuthService, private fb: FormBuilder, private toastr: ToastrService, protected router: Router) {
+    constructor(protected auth: AuthService, public userService: UserService, private fb: FormBuilder, private toastr: ToastrService, protected router: Router) {
     }
 
     ngOnInit() {
         this.form = this.fb.group({
+            username: ['', null],
             name: ['', null],
-            lastname: ['', null],            
+            lastname: ['', null],
             email: ['', null],
             password: '',
             confirmPassword: '',
@@ -35,16 +39,27 @@ export class RegisterComponent {
         });
     }
 
-    register(): void {        
+    checkUsername() {
+        this.userService.checkUsername(this.usernameText).subscribe(username => {
+            this.usernameAvailable = !username.$value
+        })
+    }
+
+    updateUsername() {
+        this.userService.updateUsername(this.usernameText);
+    }
+
+    register(): void {
         let registerData = {
             name: this.form.value['name'],
             lastname: this.form.value['lastname'],
-            username: null,            
+            username: this.form.value['username'],
         }
 
         this.auth.emailSignUp(this.form.value['email'], this.form.value['password'], registerData)
             .then((user: any) => {
-                this.toastr.success('Succesvol!', 'Geregistreerd!');                
+                this.updateUsername();
+                this.toastr.success('Succesvol!', 'Geregistreerd!');
                 this.router.navigate(['']);
             })
             .catch(error => this.toastr.error('Fout!', 'Opgetreden!'));

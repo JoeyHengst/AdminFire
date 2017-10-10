@@ -4,6 +4,7 @@ import { NbAuthModule, NbDummyAuthProvider } from '@nebular/auth';
 import { AngularFireModule, FirebaseAppConfig } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { throwIfAlreadyLoaded } from './module-import-guard';
 import { DataModule } from './data/data.module';
 import { CONFIG } from '../../environments/environment';
@@ -27,6 +28,7 @@ const NB_CORE_PROVIDERS = [
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFirestoreModule.enablePersistence(), // Enable offline mode
     CommonModule,
     ToastrModule.forRoot({
       timeOut: 5000,

@@ -1,20 +1,29 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
     "target": "es5",
-    "baseUrl": "",
+    "baseUrl": ".",
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "paths": {
+      "@admin-fire/*": [
+        "libs/*"
+      ]
+    }
   },
   "files": [
-    "test.ts"
+    "test.js"
   ],
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "tmp"
   ]
 }
