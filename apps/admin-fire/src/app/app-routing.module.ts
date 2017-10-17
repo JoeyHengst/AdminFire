@@ -26,7 +26,7 @@ const routes: Routes = [
         component: RegisterComponent
       }]
   },
-  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule', canActivate: [AuthGuard] },
+  { path: 'pages', loadChildren: 'apps/admin-fire/src/app/pages/pages.module#PagesModule', canActivate: [AuthGuard] },
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: '**', redirectTo: 'auth' }
 ];

@@ -1,0 +1,7 @@
+<div class="note-label">
+  <span *ngFor="let name of note.label; let i=index">
+    <a href="#">{{ name }}</a>
+    <span>{{i
+      < (note.label.length-1) ? '>' : ''}}</span>
+    </span>
+</div>

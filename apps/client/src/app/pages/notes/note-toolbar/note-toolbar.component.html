@@ -1,0 +1,19 @@
+<div class="toolbar-container">
+  <div class="toolbar" role="toolbar">
+    <div role="button" ngbTooltip="Remind me" class="toolbar-button">
+      <i class="fa fa-bell"></i>
+    </div>
+    <div role="button" placement="left" ngbTooltip="Change color" class="toolbar-button">
+      <color-picker (selected)="updateColor($event)" [colors]="colors" [currentNote]="currentNote"></color-picker>      
+    </div>
+    <div role="button" ngbTooltip="Add image" class="toolbar-button">
+      <i class="fa fa-picture-o"></i>
+    </div>
+    <div role="button" ngbTooltip="Archive" class="toolbar-button">
+      <i class="fa fa-archive"></i>
+    </div>    
+    <div role="button" ngbTooltip="More" class="toolbar-button">
+      <i class="fa fa-ellipsis-v"></i>     
+    </div>
+  </div>
+</div>

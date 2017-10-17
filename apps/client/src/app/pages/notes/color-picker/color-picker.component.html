@@ -1,0 +1,11 @@
+<div class="color-selector">
+    <i class="fa fa-paint-brush" (mouseover)="showSelector(true)"></i>
+    <div *ngIf="isSelectorVisible" (mouseleave)="showSelector(false)" class="selector row center-xs">
+      <div class="color"
+        *ngFor="let color of colors"
+        [ngStyle]="{'background-color': color}"
+        (click)="selectColor($event, color)"
+        >
+      </div>
+    </div>
+  </div>

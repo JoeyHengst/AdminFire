@@ -1,0 +1,14 @@
+<div class="card mb-4" [style.background]="note.color">
+    <div class="card-block">
+        <div class="cardtitle">{{ note.name }}</div>
+        <div class="cardtext">
+            {{ note.description }} 
+        </div>
+        <div class="card-labels">
+            {{ note.label }}
+        </div>
+    </div>
+    <div class="toolbar">
+    <note-toolbar [id]="host_id" [currentNote]="note.id" *ngIf="toolbar && note.id === currentNote"></note-toolbar>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+<div class="card-deck">
+  <note-row [note]="note" [currentNote]="currentId" *ngFor="let note of noteList | async" [toolbar]="toolbar" (click)='clicked(note)' [class.selected]="isSelected(note)"
+    (mouseenter)="toggleToolbar(true,note)" (mouseleave)="toggleToolbar(false,note)">
+  </note-row>
+</div>

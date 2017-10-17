@@ -1,0 +1,32 @@
+.toolbar-container{
+    align-items: center;
+    color: rgba(0,0,0,.54);
+    display: flex;    
+    flex-wrap: wrap-reverse;
+    font-size: 12px;
+    padding: 4px 0;
+    position: relative;
+    transition: background-color .218s ease-in-out,box-shadow .218s ease-in-out;
+}
+
+.toolbar {
+    box-sizing: border-box;
+    bottom: 0;
+    //opacity: 0;
+    transition-duration: .218s;
+    transition-timing-function: ease-in;
+}
+
+.toolbar-button{
+    margin: 0 3px;
+    height: 32px;
+    width: 32px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    border: 1px solid transparent;    
+    cursor: pointer;
+    display: inline-block;
+    outline: none!important;
+}
+

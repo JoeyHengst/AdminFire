@@ -1,0 +1,10 @@
+<div class="row align-items-center justify-content-center">
+    <div class="col-xs-6 creator">
+        <note-creator (createNote)="onCreateNote($event)"></note-creator>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <notes-list [id]="host_id" [noteList]="notes$" (onColorSelected)="updateNote($event)" (onNoteSelected)="noteWasSelected($event)">
+    </notes-list>
+</div>

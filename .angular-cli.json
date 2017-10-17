@@ -1,10 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "ngx-admin-demo"
+    "name": "admin-fire"
   },
   "apps": [
     {
+      "name": "adminfire",
       "root": "apps/admin-fire/src",
       "outDir": "dist/apps/admin-fire",
       "assets": [
@@ -24,15 +25,15 @@
       "tsconfig": "../../../tsconfig.app.json",
       "testTsconfig": "../../../tsconfig.spec.json",
       "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.css",
-        "../node_modules/typeface-exo/index.css",
-        "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
-        "../node_modules/ionicons/scss/ionicons.scss",
-        "../node_modules/font-awesome/scss/font-awesome.scss",
-        "../node_modules/nebular-icons/scss/nebular-icons.scss",
-        "../node_modules/socicon/css/socicon.css",
-        "./app/@theme/styles/styles.scss",
-        "../node_modules/ngx-toastr/toastr.css"
+        "../../../node_modules/bootstrap/dist/css/bootstrap.css",
+        "../../../node_modules/typeface-exo/index.css",
+        "../../../node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
+        "../../../node_modules/ionicons/scss/ionicons.scss",
+        "../../../node_modules/font-awesome/scss/font-awesome.scss",
+        "../../../node_modules/nebular-icons/scss/nebular-icons.scss",
+        "../../../node_modules/socicon/css/socicon.css",
+        "../../../apps/admin-fire/src/app/@theme/styles/styles.scss",        
+        "../../../node_modules/ngx-toastr/toastr.css"
       ],
       "scripts": [
         "../../../node_modules/tinymce/tinymce.min.js",
@@ -40,8 +41,50 @@
         "../../../node_modules/tinymce/plugins/link/plugin.min.js",
         "../../../node_modules/tinymce/plugins/paste/plugin.min.js",
         "../../../node_modules/tinymce/plugins/table/plugin.min.js",
-        "../../assets/vendors/echarts.min.js",
-        "../../assets/vendors/echarts.world.min.js",
+        "../../../apps/admin-fire/src/assets/vendors/echarts.min.js",       
+        "../../../apps/admin-fire/src/assets/vendors/echarts.world.min.js",        
+        "../../../node_modules/chart.js/dist/Chart.min.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    },
+    {
+      "name": "client",
+      "root": "apps/client/src",
+      "outDir": "dist/apps/client",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "../../../test.js",
+      "tsconfig": "../../../tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "../../../node_modules/bootstrap/dist/css/bootstrap.css",
+        "../../../node_modules/typeface-exo/index.css",
+        "../../../node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
+        "../../../node_modules/ionicons/scss/ionicons.scss",
+        "../../../node_modules/font-awesome/scss/font-awesome.scss",
+        "../../../node_modules/nebular-icons/scss/nebular-icons.scss",
+        "../../../node_modules/socicon/css/socicon.css",        
+        "../../../apps/client/src/app/@theme/styles/styles.scss",
+        "../../../node_modules/ngx-toastr/toastr.css"
+      ],
+      "scripts": [
+        "../../../node_modules/tinymce/tinymce.min.js",
+        "../../../node_modules/tinymce/themes/modern/theme.min.js",
+        "../../../node_modules/tinymce/plugins/link/plugin.min.js",
+        "../../../node_modules/tinymce/plugins/paste/plugin.min.js",
+        "../../../node_modules/tinymce/plugins/table/plugin.min.js",
+        "../../../apps/client/src/assets/vendors/echarts.min.js",        
+        "../../../apps/client/src/assets/vendors/echarts.world.min.js",
         "../../../node_modules/chart.js/dist/Chart.min.js"
       ],
       "environmentSource": "environments/environment.ts",
