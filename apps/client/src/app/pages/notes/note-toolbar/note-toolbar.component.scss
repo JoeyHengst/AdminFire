@@ -30,3 +30,39 @@
     outline: none!important;
 }
 
+.menu{
+    border-radius: 2px;
+    border-width: 0;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    position: absolute;
+    z-index: 5002;
+    transition: opacity .218s;
+    background: #fff;    
+    border: 1px solid rgba(0,0,0,.2);
+    cursor: default;
+    font-size: 13px;
+    margin: 0;
+    outline: none;
+    padding: 6px 0;
+}
+
+.menuitem{
+    border: 1px solid transparent;
+    padding: 7px 10px 3px 17px;
+    position: relative;
+    color: #333;
+    cursor: pointer;
+    list-style: none;
+    margin: 0;    
+    white-space: nowrap;
+}
+
+.menuitem:hover{
+    background: #ccc;
+}
+
+.menuitem-text{
+    height: 18px;
+    vertical-align: top;
+}
+

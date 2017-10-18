@@ -11,7 +11,7 @@ import { CONFIG } from '../../environments/environment';
 import { ToastrModule } from 'ngx-toastr';
 import { AnalyticsService } from './utils/analytics.service';
 import { AuthGuard } from './../guards/auth.guard';
-import { UserService } from '../services/user.service';
+import { UserService, FirestoreService } from '../services/index';
 import { AuthService } from './auth.service';
 import { SessionModule } from './../session/session.module';
 
@@ -37,7 +37,7 @@ const NB_CORE_PROVIDERS = [
     }), // ToastrModule added
   ],
   exports: [SessionModule],
-  providers: [AuthService,AuthGuard, UserService],
+  providers: [AuthService,AuthGuard, UserService, FirestoreService],
   declarations: [],
 })
 export class CoreModule {

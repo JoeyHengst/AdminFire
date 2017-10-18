@@ -12,10 +12,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { AnalyticsService } from './utils/analytics.service';
 import { AuthGuard } from './../guards/auth.guard';
 import { AuthService } from './auth.service';
+import { SearchComponent } from './../pages/components/search/search.component';
 import { FirestoreService, EmitterService, UserService } from './../services/index';
 import { SessionModule } from './../session/session.module';
 import { TagInputModule } from 'ngx-chips';
 export const firebaseConfig: FirebaseAppConfig = CONFIG.firebaseConfig;
+
+
 
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
@@ -39,7 +42,7 @@ const NB_CORE_PROVIDERS = [
   ],
   exports: [SessionModule],
   providers: [AuthService, AuthGuard, UserService, EmitterService, FirestoreService],
-  declarations: [],
+  declarations: [SearchComponent],
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {

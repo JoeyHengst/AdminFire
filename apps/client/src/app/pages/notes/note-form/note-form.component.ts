@@ -30,10 +30,10 @@ export class NoteCreator {
     colorSelected : boolean = false;
 
     onCreateNote() {
-        const { name, description, label, color, date } = this.newNote;
+        const { name, description, label, color, date, pending_removal } = this.newNote;
 
         if (name && description) {
-            this.createNote.emit({ name, description, color });
+            this.createNote.emit({ name, description, color, pending_removal: false });
             this.reset();
         }
     }

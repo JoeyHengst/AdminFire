@@ -39,6 +39,7 @@
     "d3": "4.8.0",
     "firebase": "^4.5.0",
     "font-awesome": "4.7.0",
+    "instantsearch.js": "^2.2.1",
     "intl": "1.2.5",
     "ionicons": "2.0.1",
     "leaflet": "1.0.3",

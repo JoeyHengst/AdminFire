@@ -96,11 +96,6 @@ export class FirestoreService {
             createdAt: timestamp
         })
     }
-    
-    // remove doc from collection
-    remove<T>(ref: DocPredicate<T>) {
-        return this.doc(ref).delete();
-    }
 
     // Check if doc exist. If YES it will update if NO it will set a new document
     upsert<T>(ref: DocPredicate<T>, data: any) {

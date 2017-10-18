@@ -4,5 +4,6 @@ export interface Note {
   description?: string;
   label?: string[];
   color?: string;
-  date?: Date;  
+  date?: Date;
+  pending_removal?: boolean;  
 }

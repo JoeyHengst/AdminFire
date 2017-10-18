@@ -25,7 +25,7 @@ export class NotesContainerComponent {
     public docId: string[];
 
     constructor(private afs: AngularFirestore, private db: FirestoreService) {
-        this.notes$ = this.db.col$('notes');
+        this.notes$ = this.db.col$('notes', ref => ref.orderBy('createdAt').where('pending_removal', '==', false));
         this.db.inspectCol('notes');
         this.notesCollectionRef = this.afs.collection<Note>('notes');
     }

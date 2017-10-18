@@ -26,7 +26,6 @@ const components = [
     ],
     declarations: [
         ...components,
-    ],
-    providers: [DataService]
+    ]    
 })
 export class NotesModule { }
