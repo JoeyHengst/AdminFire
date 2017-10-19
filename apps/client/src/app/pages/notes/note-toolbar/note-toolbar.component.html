@@ -1,18 +1,21 @@
 <div class="toolbar-container">
   <div class="toolbar" role="toolbar">
-    <div role="button" ngbTooltip="Remind me" class="toolbar-button">
+    <div role="button" *ngIf="!inTrash" ngbTooltip="Remind me" class="toolbar-button">
       <i class="fa fa-bell"></i>
     </div>
-    <div role="button" placement="left" ngbTooltip="Change color" class="toolbar-button">
+    <div role="button" *ngIf="!inTrash" placement="left" ngbTooltip="Change color" class="toolbar-button">
       <color-picker (selected)="updateColor($event)" [colors]="colors" [currentNote]="currentNote"></color-picker>
     </div>
-    <div role="button" ngbTooltip="Add image" class="toolbar-button">
+    <div role="button" *ngIf="!inTrash" ngbTooltip="Add image" class="toolbar-button">
       <i class="fa fa-picture-o"></i>
     </div>
-    <div role="button" ngbTooltip="Archive" class="toolbar-button">
+    <div role="button" *ngIf="!inArchive && !inTrash" (click)="sendArchive()" ngbTooltip="Archive" class="toolbar-button">
       <i class="fa fa-archive"></i>
     </div>
-    <div role="button" (click)="toggleMoreMenu()" ngbTooltip="More" class="toolbar-button">
+    <div role="button" *ngIf="inArchive && !inTrash" (click)="unArchive()" ngbTooltip="Unarchive" class="toolbar-button">
+      <i class="fa fa-archive"></i>
+    </div>
+    <div role="button" *ngIf="!inTrash" (click)="toggleMoreMenu()" ngbTooltip="More" class="toolbar-button">
       <i class="fa fa-ellipsis-v"></i>
       <div *ngIf="showMenu" role="menu" class="menu">
         <div class="menuitem" role="menuitem" id=":2" style="user-select: none;">
@@ -24,6 +27,17 @@
         <div class="menuitem" role="menuitem" id=":2" style="user-select: none;">
           <div class="menuitem-text" (click)="makeCopy()" style="user-select: none;">Make a copy</div>
         </div>
+      </div>
+    </div>
+    <div role="button" *ngIf="inTrash" (click)="toggleMoreMenu()" ngbTooltip="More" class="toolbar-button">
+      <i class="fa fa-ellipsis-v"></i>
+      <div *ngIf="showMenu" role="menu" class="menu">
+        <div class="menuitem" role="menuitem" id=":2" style="user-select: none;">
+          <div class="menuitem-text" (click)="deleteForever()" style="user-select: none;">Delete forever</div>
+        </div>
+        <div class="menuitem" role="menuitem" id=":2" style="user-select: none;">
+          <div class="menuitem-text" (click)="restore()" style="user-select: none;">Restore</div>
+        </div>        
       </div>
     </div>
   </div>

@@ -5,5 +5,7 @@ export interface Note {
   label?: string[];
   color?: string;
   date?: Date;
+  type?: string;
+  archived?: boolean;
   pending_removal?: boolean;  
 }

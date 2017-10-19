@@ -1,0 +1,18 @@
+<div class="btn-group" ngbRadioGroup>
+    <a [routerLink]="[ '/pages/notes/personal']">
+        <label ngbButtonLabel class="btn-outline-primary btn-sm">
+                <input ngbButton type="radio">Personal
+        </label>
+    </a>    
+    <a [routerLink]="[ '/pages/notes/archive'] ">
+        <label ngbButtonLabel class="btn-outline-primary btn-sm ">
+                <input ngbButton type="radio">Archive
+        </label>
+    </a>
+    <a [routerLink]="[ '/pages/notes/trash'] ">
+        <label ngbButtonLabel class="btn-outline-primary btn-sm ">
+                <input ngbButton type="radio">Trash
+        </label>
+    </a>
+</div>
+<router-outlet></router-outlet>

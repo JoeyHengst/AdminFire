@@ -14,11 +14,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Persoonlijk',
-        link: '/pages/notes',
+        link: '/pages/notes/personal',
       },
       {
         title: 'Specifiek',
-        link: '/pages/ui-features/grid',
+        link: '/pages/notes/specific',
       }
     ],
   },
@@ -28,11 +28,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Linie overleg',
-        link: '/pages/forms/inputs',
+        link: '/pages/records/line',
       },
       {
         title: 'Staf overleg',
-        link: '/pages/forms/layouts',
+        link: '/pages/records/staff',
       },
     ],
   },
@@ -42,16 +42,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Trainingen',
-        link: '/pages/components/tree',
+        link: '/pages/evaluations/trainings',
       }, {
         title: 'Wedstrijden',
-        link: '/pages/components/notifications',
+        link: '/pages/evaluations/matches',
       },
     ],
   },
   {
     title: 'Trainingen',
-    icon: 'nb-location'    
+    icon: 'nb-location',
+    link: '/pages/trainings',    
   },
   {
     title: 'Planning',
@@ -59,11 +60,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Voorbereiding',
-        link: '/pages/charts/echarts',
+        link: '/pages/planning/preparation',
       },
       {
         title: 'Trainingen',
-        link: '/pages/charts/chartjs',
+        link: '/pages/planning/trainings',
       }
     ],
   }

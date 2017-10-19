@@ -20,7 +20,7 @@
       {
         "name": "tslint-language-service"
       }
-    ],
+    ],    
     "paths": {
       "@admin-fire/*": [
         "libs/*"

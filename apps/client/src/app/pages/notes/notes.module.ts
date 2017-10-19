@@ -1,3 +1,6 @@
+import { NotesTrashComponent } from './note-trash/note-trash.component';
+import { NotesComponent } from './notes.component';
+import { NotesArchiveComponent } from './note-archive/note-archive.component';
 import { NoteToolbarComponent } from './note-toolbar/note-toolbar.component';
 import { NoteLabelComponent } from './note-label/note-label.component';
 import { NoteRowComponent } from './note-row/note-row.component';
@@ -8,7 +11,8 @@ import { ColorPicker } from './color-picker/color-picker.component';
 import { NgModule } from '@angular/core';
 import { ThemeModule } from '../../@theme/theme.module';
 import { NotesRoutingModule } from './notes-routing.module';
-
+import { SearchModule } from './../../pages/components/search/search.module';
+import { LoadingSpinnerComponent } from './../../pages/components/loading-spinner/loading-spinner.component';
 
 const components = [
     NoteLabelComponent,
@@ -17,12 +21,16 @@ const components = [
     NotesContainerComponent,
     NotesListComponent,
     NoteCreator,
-    ColorPicker
+    NotesArchiveComponent,
+    NotesTrashComponent,
+    NotesComponent,
+    LoadingSpinnerComponent,
+    ColorPicker        
 ];
 
 @NgModule({
     imports: [
-        ThemeModule, NotesRoutingModule,
+        ThemeModule, NotesRoutingModule,SearchModule
     ],
     declarations: [
         ...components,

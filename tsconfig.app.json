@@ -25,6 +25,7 @@
     "**/*.spec.ts",
     "**/*.e2e-spec.ts",
     "node_modules",
-    "tmp"
+    "tmp",
+    "functions"
   ]
 }

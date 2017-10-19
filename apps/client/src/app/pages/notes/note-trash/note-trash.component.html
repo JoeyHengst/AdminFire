@@ -1,0 +1,5 @@
+<div class="row">
+    <notes-list [id]="host_id" [noteList]="notes$" (onColorSelected)="updateNote($event)" (onNoteSelected)="noteWasSelected($event)">
+    </notes-list>
+</div>
+<loading-spinner *ngIf="showSpinner"></loading-spinner>

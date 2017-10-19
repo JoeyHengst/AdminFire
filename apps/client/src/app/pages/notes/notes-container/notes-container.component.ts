@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { EmitterService } from './../../../services/emitter.service';
 import {
     Component,
@@ -23,11 +24,20 @@ export class NotesContainerComponent {
     public host_id: "HOST_COMPONENT";
     public color: string;
     public docId: string[];
+    showSpinner: boolean = true;
+    url : string;
 
-    constructor(private afs: AngularFirestore, private db: FirestoreService) {
-        this.notes$ = this.db.col$('notes', ref => ref.orderBy('createdAt').where('pending_removal', '==', false));
+    constructor(private afs: AngularFirestore, private db: FirestoreService, private activeRoute: ActivatedRoute) {
+        activeRoute.url.subscribe(() => {
+            activeRoute.snapshot;
+            this.url = activeRoute.snapshot.url[0].path;                        
+        });
+        
+        this.notes$ = this.db.col$('notes', ref => ref.orderBy('createdAt').where('pending_removal', '==', false).where('type', '==', this.url).where('archived','==', false));
+        this.notes$.subscribe(() => this.showSpinner = false);
         this.db.inspectCol('notes');
         this.notesCollectionRef = this.afs.collection<Note>('notes');
+        
     }
 
     noteWasSelected(note: Note): void {
