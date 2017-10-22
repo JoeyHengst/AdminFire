@@ -19,6 +19,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Specifiek',
         link: '/pages/notes/specific',
+      },
+      {
+        title: 'Archief',
+        link: '/pages/notes/archive',
+      },
+      {
+        title: 'Prullenbak',
+        link: '/pages/notes/trash',
       }
     ],
   },

@@ -1,3 +1,4 @@
+import { Record } from './../../../models/record.model';
 import { ActivatedRoute } from '@angular/router';
 import { EmitterService } from './../../../services/emitter.service';
 import {
@@ -11,17 +12,17 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { FirestoreService } from './../../../services/firestore.service';
 
 /**
- * @Note container: contains the notes
+ * @Records container: contains the records
  */
 @Component({
-    selector: 'notes-container',
-    templateUrl: './notes-container.component.html'
+    selector: 'records-container',
+    templateUrl: './records-container.component.html'
 })
-export class NotesContainerComponent {
-    notes$: Observable<Note[]>;
-    notesCollectionRef: AngularFirestoreCollection<Note>;
+export class RecordsContainerComponent {
+    records$: Observable<Record[]>;
+    recordsCollectionRef: AngularFirestoreCollection<Record>;
     @Input() id: string;
-    public host_id: "HOST_COMPONENT";
+    public host_id: "RECORD_COMPONENT";
     public color: string;
     public docId: string[];
     showSpinner: boolean = true;
@@ -33,27 +34,27 @@ export class NotesContainerComponent {
             this.url = activeRoute.snapshot.url[0].path;                        
         });
         
-        this.notes$ = this.db.col$('notes', ref => ref.orderBy('createdAt').where('pending_removal', '==', false).where('type', '==', this.url).where('archived','==', false));
-        this.notes$.subscribe(() => this.showSpinner = false);
-        this.db.inspectCol('notes');
-        this.notesCollectionRef = this.afs.collection<Note>('notes');
+        this.records$ = this.db.col$('records', ref => ref.orderBy('createdAt').where('pending_removal', '==', false).where('type', '==', this.url).where('archived','==', false));
+        this.records$.subscribe(() => this.showSpinner = false);
+        this.db.inspectCol('records');
+        this.recordsCollectionRef = this.afs.collection<Record>('records');
         
     }
 
-    noteWasSelected(note: Note): void {
+    recordWasSelected(record: Record): void {
         //console.log('Note clicked: ', note);
     }
 
-    onCreateNote(note: Note) {
-        this.db.add('notes', note);
+    onCreateRecord(record: Record) {
+        this.db.add('records', record);
     }
 
-    updateNote(note: Note) {
+    updateRecord(record: Record) {
         EmitterService.get(this.id).subscribe(value => {
             this.color = value;
         });
         if (this.color) {
-            this.db.update(`notes/${note.id}` , this.color);
+            this.db.update(`records/${record.id}` , this.color);
             this.color = null;
         }
     }

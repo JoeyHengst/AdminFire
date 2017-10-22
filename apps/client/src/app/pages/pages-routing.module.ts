@@ -13,6 +13,9 @@ const routes: Routes = [{
   }, {
     path: 'notes',
     loadChildren: './notes/notes.module#NotesModule',
+  },{
+    path: 'records',
+    loadChildren: './records/records.module#RecordsModule',
   }, {
     path: 'components',
     loadChildren: './components/components.module#ComponentsModule',
