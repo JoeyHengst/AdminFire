@@ -1,9 +1,10 @@
-import { UserService } from './../../services/user.service';
+import { FirestoreService } from './../../services/firestore.service';
 import { AuthService } from './../../@core/auth.service';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
     selector: 'nb-register',
@@ -12,6 +13,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterComponent {
 
+    static areEqual(c: AbstractControl): ValidationErrors | null {
+        const keys: string[] = Object.keys(c.value);
+        for (const i in keys) {
+            if (i !== '0' && c.value[keys[+i - 1]] !== c.value[keys[i]]) {
+                return { areEqual: true };
+            }
+        }
+    }
+    showSpinner: boolean = false;
     redirectDelay: number = 0;
     showMessages: any = {};
     provider: string = '';
@@ -22,31 +32,33 @@ export class RegisterComponent {
     user: any = {};
     public form: FormGroup;
     usernameText: string;
-    usernameAvailable: boolean;
+    usernameAvailable: boolean = false;
 
-    constructor(protected auth: AuthService, public userService: UserService, private fb: FormBuilder, private toastr: ToastrService, protected router: Router) {
+    constructor(protected auth: AuthService, public db: FirestoreService, private fb: FormBuilder, private toastr: ToastrService, protected router: Router) {
+        this.form = fb.group({
+            username: ['', Validators.required],
+            name: ['', Validators.required],
+            lastname: ['', Validators.required],
+            email: ['', Validators.required],
+            password: ['', Validators.required],
+            confirmPassword: ['', Validators.required],
+            terms: ['', Validators.required]
+        }, RegisterComponent.areEqual);
     }
 
     ngOnInit() {
-        this.form = this.fb.group({
-            username: ['', null],
-            name: ['', null],
-            lastname: ['', null],
-            email: ['', null],
-            password: '',
-            confirmPassword: '',
-            terms: ''
-        });
+
     }
 
     checkUsername() {
-        this.userService.checkUsername(this.usernameText).subscribe(username => {
-            this.usernameAvailable = !username.$value
-        })
-    }
+        if (this.usernameText) {
+            this.showSpinner = true;
+            this.db.checkUsername(this.usernameText).then(username => {
+                this.showSpinner = false;
+                this.usernameAvailable = !username
 
-    updateUsername() {
-        this.userService.updateUsername(this.usernameText);
+            })
+        }
     }
 
     register(): void {
@@ -58,7 +70,6 @@ export class RegisterComponent {
 
         this.auth.emailSignUp(this.form.value['email'], this.form.value['password'], registerData)
             .then((user: any) => {
-                this.updateUsername();
                 this.toastr.success('Succesvol!', 'Geregistreerd!');
                 this.router.navigate(['']);
             })

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { connectRefinementList } from 'instantsearch.js/es/connectors';
 
-import { InstantSearchService } from '../../../../services/index';
+import { InstantSearchService } from '../../../../services/search.service';
 
 @Component({
     selector: 'app-refinement-list',

@@ -18,8 +18,7 @@ import { FirestoreService } from './../../../services/firestore.service';
     templateUrl: './notes-container.component.html'
 })
 export class NotesContainerComponent {
-    notes$: Observable<Note[]>;
-    notesCollectionRef: AngularFirestoreCollection<Note>;
+    notes$: Observable<Note[]>;    
     @Input() id: string;
     public host_id: "HOST_COMPONENT";
     public color: string;
@@ -35,8 +34,7 @@ export class NotesContainerComponent {
         
         this.notes$ = this.db.col$('notes', ref => ref.orderBy('createdAt').where('pending_removal', '==', false).where('type', '==', this.url).where('archived','==', false));
         this.notes$.subscribe(() => this.showSpinner = false);
-        this.db.inspectCol('notes');
-        this.notesCollectionRef = this.afs.collection<Note>('notes');
+        this.db.inspectCol('notes');        
         
     }
 

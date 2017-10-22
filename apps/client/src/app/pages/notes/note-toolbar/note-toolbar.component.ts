@@ -1,4 +1,5 @@
-import { FirestoreService, EmitterService } from './../../../services/index';
+import { FirestoreService } from './../../../services/firestore.service';
+import { EmitterService } from './../../../services/emitter.service';
 import { Note } from './../../../models/note.model';
 import {
     Component,

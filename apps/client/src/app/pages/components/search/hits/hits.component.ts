@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { connectHits } from 'instantsearch.js/es/connectors';
-import { InstantSearchService } from '../../../../services/index';
+import { InstantSearchService } from '../../../../services/search.service';
 
 @Component({
     selector: 'app-hits',

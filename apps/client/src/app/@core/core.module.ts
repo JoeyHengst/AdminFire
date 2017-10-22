@@ -12,7 +12,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { AnalyticsService } from './utils/analytics.service';
 import { AuthGuard } from './../guards/auth.guard';
 import { AuthService } from './auth.service';
-import { FirestoreService, EmitterService, UserService, InstantSearchService } from './../services/index';
+import { FirestoreService } from './../services/firestore.service';
+import { EmitterService } from './../services/emitter.service';
+import { InstantSearchService } from './../services/search.service';
+import { RoleService } from './../services/role.service';
 import { SessionModule } from './../session/session.module';
 import { TagInputModule } from 'ngx-chips';
 export const firebaseConfig: FirebaseAppConfig = CONFIG.firebaseConfig;
@@ -40,7 +43,7 @@ const NB_CORE_PROVIDERS = [
     }), // ToastrModule added
   ],
   exports: [SessionModule],
-  providers: [AuthService, AuthGuard, UserService, EmitterService, FirestoreService, InstantSearchService]  
+  providers: [AuthService, AuthGuard, EmitterService, FirestoreService,RoleService, InstantSearchService]  
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {

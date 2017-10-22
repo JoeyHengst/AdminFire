@@ -14,6 +14,7 @@ export interface Roles {
     username?: string;
     photoURL?: string;
     roles?: Roles;
+    terms?: string;
     constructor(authData) {
       this.email = authData.email
       this.photoURL = authData.photoURL

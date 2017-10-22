@@ -1,3 +1,4 @@
+import { LoadingSpinnerModule } from './../components/loading-spinner/loading-spinner.module';
 import { NotesTrashComponent } from './note-trash/note-trash.component';
 import { NotesComponent } from './notes.component';
 import { NotesArchiveComponent } from './note-archive/note-archive.component';
@@ -23,14 +24,13 @@ const components = [
     NoteCreator,
     NotesArchiveComponent,
     NotesTrashComponent,
-    NotesComponent,
-    LoadingSpinnerComponent,
+    NotesComponent,    
     ColorPicker        
 ];
 
 @NgModule({
     imports: [
-        ThemeModule, NotesRoutingModule,SearchModule
+        ThemeModule, NotesRoutingModule,SearchModule, LoadingSpinnerModule
     ],
     declarations: [
         ...components,

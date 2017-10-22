@@ -17,8 +17,7 @@ import { FirestoreService } from './../../../services/firestore.service';
     templateUrl: './note-trash.component.html'
 })
 export class NotesTrashComponent {
-    notes$: Observable<Note[]>;
-    notesCollectionRef: AngularFirestoreCollection<Note>;
+    notes$: Observable<Note[]>;    
     @Input() id: string;
     public host_id: "HOST_COMPONENT";
     public color: string;
@@ -27,9 +26,7 @@ export class NotesTrashComponent {
 
     constructor(private afs: AngularFirestore, private db: FirestoreService) {
         this.notes$ = this.db.col$('notes', ref => ref.orderBy('createdAt').where('pending_removal', '==', true));
-        this.notes$.subscribe(() => this.showSpinner = false);
-        //this.db.inspectCol('notes');
-        this.notesCollectionRef = this.afs.collection<Note>('notes');
+        this.notes$.subscribe(() => this.showSpinner = false);        
     }
 
     noteWasSelected(note: Note): void {

@@ -1,11 +1,14 @@
 <app-auth-block>
     <h1>Registreren</h1>
     <form (ngSubmit)="register()" [formGroup]="form">
-        <div class="input-group">
+        <div class="form-group">
+            <div class="input-group">
             <span class="input-group-addon success">@</span>
             <input formControlName="username" [(ngModel)]="usernameText" (keyup)="checkUsername()" id="input-name" class="form-control"
                 placeholder="Gebruikersnaam" [formControl]="form.controls['username']" autofocus>
-            <small *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="mat-text-warn">Gebruikersnaam verplicht.</small>
+                <loading-spinner *ngIf="showSpinner"></loading-spinner>                
+            </div>
+            <div *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="form-control-feedback">Gebruikersnaam verplicht.</div>
         </div>
         <p class="help is-success" *ngIf="usernameAvailable && usernameText">
             @{{usernameText}} is beschikbaar
@@ -13,17 +16,19 @@
         <p class="help is-danger" *ngIf="!usernameAvailable && usernameText">
             @{{usernameText}} is al in gebruik
         </p>
+        <div classs="form-group">
         <div class="row full-name-inputs">
             <div class="col-sm-6 input-group">
                 <input formControlName="name" id="input-name" class="form-control" placeholder="Voornaam" [formControl]="form.controls['name']"
-                    autofocus>
-                <small *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="mat-text-warn">Voornaam verplicht.</small>
+                    autofocus>                
             </div>
             <div class="col-sm-6 input-group">
                 <input formControlName="lastname" id="input-name" class="form-control" placeholder="Achternaam" [formControl]="form.controls['lastname']"
-                    autofocus>
-                <small *ngIf="form.controls['lastname'].hasError('required') && form.controls['lastname'].touched" class="mat-text-warn">Achternaam verplicht.</small>
+                    autofocus>                
             </div>
+        </div>
+        <div *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="form-control-feedback">Voornaam verplicht.</div>
+        <div *ngIf="form.controls['lastname'].hasError('required') && form.controls['lastname'].touched" class="form-control-feedback">Achternaam verplicht.</div>
         </div>
         <div class="form-group">
             <div class="input-group mail-btn-group">
@@ -32,20 +37,20 @@
                         <i class="ion-ios-email-outline"></i>
                     </button>
                 </span>
-                <input formControlName="email" [(ngModel)]="user.email" id="input-email" class="form-control" placeholder="Email adres" [formControl]="form.controls['email']">
-                <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">You must include an email address.</small>
-                <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="mat-text-warn">You must include a valid email address.</small>
+                <input formControlName="email" [(ngModel)]="user.email" id="input-email" class="form-control" placeholder="Email adres" [formControl]="form.controls['email']">                
             </div>
+            <div *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="form-control-feedback">Email is verplicht.</div>
+                <div *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="form-control-feedback">You must include a valid email address.</div>
         </div>
         <div class="form-group">
             <input formControlName="password" type="password" id="input-password" class="form-control" placeholder="Wachtwoord" [formControl]="form.controls['password']">
-            <small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="mat-text-warn">You must include password.</small>
+            <div *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="form-control-feedback">You must include password.</div>
         </div>
         <div class="form-group">
             <input formControlName="confirmPassword" type="password" id="input-re-password" class="form-control" placeholder="Herhaal wachtwoord"
                 [formControl]="form.controls['confirmPassword']">
-            <small *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="mat-text-warn">You must include confirm password.</small>
-            <small *ngIf="form.controls['confirmPassword'].errors?.equalTo" class="mat-text-warn">Passwords do not match.</small>
+            <div *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="form-control-feedback">You must include confirm password.</div>
+            <div *ngIf="form.controls['password'].errors?.areEqual" class="form-control-feedback">Passwords do not match.</div>
         </div>
         <div class="form-group accept-group col-sm-12">
             <nb-checkbox formControlName="terms">
@@ -55,7 +60,7 @@
                 </a>
             </nb-checkbox>
         </div>
-        <button [disabled]="submitted || !form.valid" class="btn btn-block btn-hero-success" [class.btn-pulse]="submitted">
+        <button [disabled]="!form.valid || !usernameAvailable" class="btn btn-block btn-hero-success" [class.btn-pulse]="submitted">
             Registreren
         </button>
     </form>

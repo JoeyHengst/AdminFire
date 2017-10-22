@@ -1,4 +1,3 @@
-import { AuthService } from './../@core/auth.service';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import {
@@ -16,30 +15,19 @@ type DocPredicate<T> = string | AngularFirestoreDocument<T>;
 @Injectable()
 export class FirestoreService {
     userRoles: Array<string>; // roles of currently logged in user
-    constructor(private auth: AuthService, private afs: AngularFirestore) {
-        auth.user.map(user => {
-            /// Set an array of user roles, ie ['admin', 'author', ...]
-            return this.userRoles = _.keys(_.get(user, 'roles'))
-        })
-            .subscribe()
+    usernames$: Observable<any>;
+    constructor(private afs: AngularFirestore) {
+        this.userRoles = [];
     }
 
-    ///// Authorization Logic /////
-    get canRead(): boolean {
-        const allowed = ['admin', 'author', 'contributor', 'editor', 'subscriber']
-        return this.matchingRole(allowed)
-    }
-    get canEdit(): boolean {
-        const allowed = ['admin', 'author', 'contributor', 'editor']
-        return this.matchingRole(allowed)
-    }
-    get canDelete(): boolean {
-        const allowed = ['admin']
-        return this.matchingRole(allowed)
-    }
-    /// Helper to determine if any matching roles exist
-    private matchingRole(allowedRoles): boolean {
-        return !_.isEmpty(_.intersection(allowedRoles, this.userRoles))
+    checkUsername(username: string) {
+        if(!username){
+            return;
+        }        
+        const doc = this.doc(`usernames/${username}`).snapshotChanges().take(1).toPromise();
+        return doc.then(snap => {
+            return snap.payload.exists ? true : false
+        });
     }
 
     // Return a reference
@@ -53,7 +41,9 @@ export class FirestoreService {
     // Get data
     doc$<T>(ref: DocPredicate<T>): Observable<T> {
         return this.doc(ref).snapshotChanges().map(doc => {
-            return doc.payload.data() as T
+            if (doc.payload.exists) {
+                return doc.payload.data() as T
+            }
         })
     }
     col$<T>(ref: CollectionPredicate<T>, queryFn?): Observable<T[]> {
@@ -96,7 +86,17 @@ export class FirestoreService {
             createdAt: timestamp
         })
     }
-    
+
+    // Add doc to collection with a timestamp
+    addCustomId<T>(ref: CollectionPredicate<T>, id) {
+        console.log('wat is id:', id);
+        const timestamp = this.timestamp;        
+        return this.col(ref).doc(id).set({
+            updatedAt: timestamp,
+            createdAt: timestamp
+        })
+    }
+
     // remove doc from collection
     remove<T>(ref: DocPredicate<T>) {
         return this.doc(ref).delete();

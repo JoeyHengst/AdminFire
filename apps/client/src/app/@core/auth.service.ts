@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import { User } from '../models/user.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { FirestoreService } from './../services/firestore.service';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/switchMap';
 
@@ -13,15 +14,14 @@ export class AuthService {
 
     user: BehaviorSubject<User> = new BehaviorSubject(null);
     itemRef: AngularFireObject<any>;
-    
-    constructor(private afAuth: AngularFireAuth,
-        private db: AngularFireDatabase) {
+
+    constructor(private afAuth: AngularFireAuth,private db: FirestoreService) {
 
         this.afAuth.authState
             .switchMap(auth => {
                 if (auth) {
                     /// signed in                    
-                    return this.db.object('users/' + auth.uid).valueChanges();
+                    return this.db.doc$('users/' + auth.uid);
                 } else {
                     /// not signed in
                     return Observable.of(null)
@@ -97,7 +97,9 @@ export class AuthService {
                 data.roles = user.roles;
                 data.uid = user.uid;
                 data.photoURL = user.photoURL;
+                data.terms = user.terms;
                 this.createUser(data);
+                this.addToUsernameCollection(data.username);
             })
             .catch(error => console.log(error));
     }
@@ -126,31 +128,21 @@ export class AuthService {
         this.afAuth.auth.signOut();
     }
 
-    createUser(authData){
+    createUser(authData) {
         const userData = new User(authData);
         console.log(userData);
-        this.itemRef = this.db.object('users/' + authData.uid);        
-        let item: any = this.itemRef.valueChanges();
-        this.itemRef.set(userData);
+        this.db.set('users/' + authData.uid, userData);
+    }
+
+    addToUsernameCollection(username){
+        this.db.addCustomId('usernames',username);
     }
 
 
-    //// Update user data ////
-    /// updates database with user info after login
-    /// only runs if user role is not already defined in database
+    //// Update user data ////    
     updateUser(authData) {
         const userData = new User(authData)
-        this.itemRef = this.db.object('users/' + authData.uid);
-        const item: any = this.itemRef.valueChanges();                
-        item.subscribe(user => {
-            console.log(user);    
-            if (!user.role) {
-                this.itemRef.update(userData)
-                }
-            })
+        this.db.update('users/' + authData.uid, authData);
     }
-
-
-
 
 }
