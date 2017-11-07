@@ -3,32 +3,31 @@
     <form (ngSubmit)="register()" [formGroup]="form">
         <div class="form-group">
             <div class="input-group">
-            <span class="input-group-addon success">@</span>
-            <input formControlName="username" [(ngModel)]="usernameText" (keyup)="checkUsername()" id="input-name" class="form-control"
-                placeholder="Gebruikersnaam" [formControl]="form.controls['username']" autofocus>
-                <loading-spinner *ngIf="showSpinner"></loading-spinner>                
-            </div>
+                <span class="input-group-addon success">@</span>
+                <input formControlName="username" [(ngModel)]="usernameText" (keyup)="checkUsername()" id="input-name" class="form-control"
+                    placeholder="Gebruikersnaam" [formControl]="form.controls['username']" autofocus>
+                </div>
             <div *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="form-control-feedback">Gebruikersnaam verplicht.</div>
         </div>
-        <p class="help is-success" *ngIf="usernameAvailable && usernameText">
+        <p class="help is-success" *ngIf="usernameAvailable && form.controls['username'].dirty && form.controls['username'].valid">
             @{{usernameText}} is beschikbaar
         </p>
-        <p class="help is-danger" *ngIf="!usernameAvailable && usernameText">
+        <p class="error" *ngIf="!usernameAvailable && form.controls['username'].dirty && form.controls['username'].valid">
             @{{usernameText}} is al in gebruik
         </p>
         <div classs="form-group">
-        <div class="row full-name-inputs">
-            <div class="col-sm-6 input-group">
-                <input formControlName="name" id="input-name" class="form-control" placeholder="Voornaam" [formControl]="form.controls['name']"
-                    autofocus>                
+            <div class="row full-name-inputs">
+                <div class="col-sm-6 input-group">
+                    <input formControlName="name" id="input-name" class="form-control" placeholder="Voornaam" [formControl]="form.controls['name']"
+                        autofocus>
+                </div>
+                <div class="col-sm-6 input-group">
+                    <input formControlName="lastname" id="input-name" class="form-control" placeholder="Achternaam" [formControl]="form.controls['lastname']"
+                        autofocus>
+                </div>
             </div>
-            <div class="col-sm-6 input-group">
-                <input formControlName="lastname" id="input-name" class="form-control" placeholder="Achternaam" [formControl]="form.controls['lastname']"
-                    autofocus>                
-            </div>
-        </div>
-        <div *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="form-control-feedback">Voornaam verplicht.</div>
-        <div *ngIf="form.controls['lastname'].hasError('required') && form.controls['lastname'].touched" class="form-control-feedback">Achternaam verplicht.</div>
+            <div *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="form-control-feedback">Voornaam verplicht.</div>
+            <div *ngIf="form.controls['lastname'].hasError('required') && form.controls['lastname'].touched" class="form-control-feedback">Achternaam verplicht.</div>
         </div>
         <div class="form-group">
             <div class="input-group mail-btn-group">
@@ -37,10 +36,10 @@
                         <i class="ion-ios-email-outline"></i>
                     </button>
                 </span>
-                <input formControlName="email" [(ngModel)]="user.email" id="input-email" class="form-control" placeholder="Email adres" [formControl]="form.controls['email']">                
+                <input formControlName="email" [(ngModel)]="user.email" id="input-email" class="form-control" placeholder="Email adres" [formControl]="form.controls['email']">
             </div>
             <div *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="form-control-feedback">Email is verplicht.</div>
-                <div *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="form-control-feedback">You must include a valid email address.</div>
+            <div *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="form-control-feedback">You must include a valid email address.</div>
         </div>
         <div class="form-group">
             <input formControlName="password" type="password" id="input-password" class="form-control" placeholder="Wachtwoord" [formControl]="form.controls['password']">

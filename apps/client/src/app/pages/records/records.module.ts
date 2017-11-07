@@ -1,3 +1,4 @@
+import { SharedModule } from './../../../../../client/src/app/shared/shared.module';
 import { RecordsRoutingModule } from './records-routing.module';
 import { RecordsTrashComponent } from './records-trash/records-trash.component';
 import { RecordsComponent } from './records.component';
@@ -12,7 +13,6 @@ import { LoadingSpinnerComponent } from './../../pages/components/loading-spinne
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const components = [
-    LoadingSpinnerComponent,
     RecordFormComponent,
     RecordRowComponent,
     RecordsArchiveComponent,
@@ -24,7 +24,7 @@ const components = [
 
 @NgModule({
     imports: [
-        ThemeModule, FormsModule, ReactiveFormsModule, RecordsRoutingModule
+        ThemeModule, FormsModule, ReactiveFormsModule, RecordsRoutingModule, SharedModule
     ],
     declarations: [
         ...components,

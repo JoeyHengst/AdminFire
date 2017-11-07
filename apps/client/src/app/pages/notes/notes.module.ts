@@ -1,4 +1,4 @@
-import { LoadingSpinnerModule } from './../components/loading-spinner/loading-spinner.module';
+import { SharedModule } from './../../shared/shared.module';
 import { NotesTrashComponent } from './note-trash/note-trash.component';
 import { NotesComponent } from './notes.component';
 import { NotesArchiveComponent } from './note-archive/note-archive.component';
@@ -30,7 +30,7 @@ const components = [
 
 @NgModule({
     imports: [
-        ThemeModule, NotesRoutingModule,SearchModule, LoadingSpinnerModule
+        ThemeModule, NotesRoutingModule,SearchModule, SharedModule
     ],
     declarations: [
         ...components,

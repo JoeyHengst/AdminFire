@@ -1,4 +1,3 @@
-import { LoadingSpinnerModule } from './../pages/components/loading-spinner/loading-spinner.module';
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -9,7 +8,6 @@ import { SessionComponent } from './session.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { LoadingSpinnerComponent } from './../pages/components/loading-spinner/loading-spinner.component';
 import { NbLayoutModule, NbCardModule, NbCheckboxModule } from '@nebular/theme';
 
 @NgModule({
@@ -21,7 +19,6 @@ import { NbLayoutModule, NbCardModule, NbCheckboxModule } from '@nebular/theme';
         RouterModule.forChild(SessionRoutes),
         FormsModule,
         SharedModule,
-        LoadingSpinnerModule,
         ReactiveFormsModule
     ],
     declarations: [

@@ -5,10 +5,10 @@
             <label for="input-name" class="sr-only">Username</label>
             <input formControlName="username" [(ngModel)]="usernameText" (keyup)="checkUsername()" id="input-name" class="form-control"
                 placeholder="username" [formControl]="form.controls['username']" autofocus>
-            <p class="help is-success" *ngIf="usernameAvailable && usernameText">
+            <p class="help is-success" *ngIf="usernameAvailable">
                 @{{usernameText}} is available
             </p>
-            <p class="help is-danger" *ngIf="!usernameAvailable && usernameText">
+            <p class="help is-danger" *ngIf="!usernameAvailable">
                 @{{usernameText}} has already been taken
             </p>
             <small *ngIf="form.controls['username'].hasError('required') && form.controls['username'].touched" class="mat-text-warn">Username required.</small>

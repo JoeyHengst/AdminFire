@@ -4,7 +4,7 @@
     <form (ngSubmit)="login()" [formGroup]="form" autocomplete="nope">
         <div class="form-group">
             <input formControlName="email" id="input-email" class="form-control" placeholder="Email / Gebruikersnaam" autofocus [formControl]="form.controls['email']">
-            <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">Email / Gebruikersnaam is verplicht.</small>
+            <div *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">Email / Gebruikersnaam is verplicht.</div>
         </div>
         <div class="form-group">
             <label for="input-password" class="sr-only">Password</label>
@@ -14,7 +14,7 @@
         <div class="form-group accept-group col-sm-12">
             <a class="forgot-password" [routerLink]="['../auth/forgot']">Wachtwoord vergeten?</a>
         </div>
-        <button [disabled]="submitted || !form.valid" class="btn btn-block btn-hero-success" [class.btn-pulse]="submitted">
+        <button [disabled]="!form.valid" class="btn btn-block btn-hero-success" [class.btn-pulse]="submitted">
         Inloggen
       </button>
     </form>

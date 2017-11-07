@@ -1,7 +1,7 @@
 import { AuthService } from './../../@core/auth.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.form = this.fb.group({
-            email: ['', null],
-            password: ['', null]
+            email: ['', Validators.required],
+            password: ['', Validators.required]
         }
         );
     }

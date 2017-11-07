@@ -13,14 +13,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RegisterComponent {
 
-    static areEqual(c: AbstractControl): ValidationErrors | null {
-        const keys: string[] = Object.keys(c.value);
-        for (const i in keys) {
-            if (i !== '0' && c.value[keys[+i - 1]] !== c.value[keys[i]]) {
-                return { areEqual: true };
-            }
-        }
-    }
     showSpinner: boolean = false;
     redirectDelay: number = 0;
     showMessages: any = {};
@@ -43,7 +35,7 @@ export class RegisterComponent {
             password: ['', Validators.required],
             confirmPassword: ['', Validators.required],
             terms: ['', Validators.required]
-        }, RegisterComponent.areEqual);
+        });
     }
 
     ngOnInit() {
