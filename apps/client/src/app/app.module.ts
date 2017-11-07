@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { reducers } from './reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,9 +25,11 @@ import { environment } from '../environments/environment';
     NgbModule.forRoot(),
     ThemeModule.forRoot(),
     CoreModule.forRoot(),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument({
+      maxAge: 25
+    }) : [],
   ],
   bootstrap: [AppComponent],
   providers: [

@@ -13,7 +13,10 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from '../../@theme/theme.module';
 import { NotesRoutingModule } from './notes-routing.module';
 import { SearchModule } from './../../pages/components/search/search.module';
-import { LoadingSpinnerComponent } from './../../pages/components/loading-spinner/loading-spinner.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { noteReducer } from './notes.reducer';
+import { NotesEffects } from './notes.effects'
 
 const components = [
     NoteLabelComponent,
@@ -24,16 +27,18 @@ const components = [
     NoteCreator,
     NotesArchiveComponent,
     NotesTrashComponent,
-    NotesComponent,    
-    ColorPicker        
+    NotesComponent,
+    ColorPicker
 ];
 
 @NgModule({
     imports: [
-        ThemeModule, NotesRoutingModule,SearchModule, SharedModule
+        ThemeModule, NotesRoutingModule, SearchModule, SharedModule,
+        StoreModule.forFeature('note', noteReducer),
+        EffectsModule.forFeature([NotesEffects])
     ],
     declarations: [
         ...components,
-    ]    
+    ]
 })
 export class NotesModule { }

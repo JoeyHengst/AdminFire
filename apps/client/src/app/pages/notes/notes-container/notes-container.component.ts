@@ -2,11 +2,14 @@ import { ActivatedRoute } from '@angular/router';
 import { EmitterService } from './../../../services/emitter.service';
 import {
     Component,
-    EventEmitter, Input
+    EventEmitter, Input, OnInit
 } from '@angular/core';
 
 import { Note } from './../../../models/note.model';
-import { Observable } from 'rxjs/Observable'
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import * as actions from '../notes.actions';
+import * as fromNotes from '../notes.reducer';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { FirestoreService } from './../../../services/firestore.service';
 
@@ -17,25 +20,31 @@ import { FirestoreService } from './../../../services/firestore.service';
     selector: 'notes-container',
     templateUrl: './notes-container.component.html'
 })
-export class NotesContainerComponent {
-    notes$: Observable<Note[]>;    
+export class NotesContainerComponent implements OnInit {
+    notes$: Observable<Note[]>;
     @Input() id: string;
     public host_id: "HOST_COMPONENT";
     public color: string;
     public docId: string[];
     showSpinner: boolean = true;
-    url : string;
+    url: string;
 
-    constructor(private afs: AngularFirestore, private db: FirestoreService, private activeRoute: ActivatedRoute) {
+    constructor(private afs: AngularFirestore, private db: FirestoreService, private activeRoute: ActivatedRoute, private store: Store<fromNotes.State>) {
         activeRoute.url.subscribe(() => {
             activeRoute.snapshot;
-            this.url = activeRoute.snapshot.url[0].path;                        
+            this.url = activeRoute.snapshot.url[0].path;
         });
-        
-        this.notes$ = this.db.col$('notes', ref => ref.orderBy('createdAt').where('pending_removal', '==', false).where('type', '==', this.url).where('archived','==', false));
+
+        //this.notes$ = this.db.col$('notes', ref => ref.orderBy('createdAt').where('pending_removal', '==', false).where('type', '==', this.url).where('archived','==', false));
+        //this.notes$.subscribe(() => this.showSpinner = false);
+        //this.db.inspectCol('notes');        
+
+    }
+
+    ngOnInit() {
+        this.notes$ = this.store.select(fromNotes.selectAll);
         this.notes$.subscribe(() => this.showSpinner = false);
-        this.db.inspectCol('notes');        
-        
+        this.store.dispatch(new actions.Query())
     }
 
     noteWasSelected(note: Note): void {
@@ -43,7 +52,8 @@ export class NotesContainerComponent {
     }
 
     onCreateNote(note: Note) {
-        this.db.add('notes', note);
+        // this.db.add('notes', note);
+        this.store.dispatch(new actions.Create(note))
     }
 
     updateNote(note: Note) {
@@ -51,7 +61,8 @@ export class NotesContainerComponent {
             this.color = value;
         });
         if (this.color) {
-            this.db.update(`notes/${note.id}` , this.color);
+            //this.db.update(`notes/${note.id}` , this.color);
+            this.store.dispatch(new actions.Update(note.id, { color: this.color }));
             this.color = null;
         }
     }

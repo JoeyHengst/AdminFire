@@ -5,7 +5,7 @@
             <nb-card-body>
                 <form [formGroup]="recordForm" (ngSubmit)="createNewRecord(recordForm)" novalidate>
                     <div class="form-group">
-                        <input class="form-control" placeholder="Title" type="text" formControlName="title" (change)="saveRecordChanges()">
+                        <input class="form-control" placeholder="Title" type="text" formControlName="title">
                     </div>
                     <div class="error" *ngIf="recordForm.get('title').touched && recordForm.get('title').hasError('required')">
                         Name is required
@@ -14,13 +14,13 @@
                         Minimum of 2 characters
                     </div>
                     <div class="form-group">
-                        <input class="form-control" placeholder="Image" type="text" formControlName="image" (change)="saveRecordChanges()">
+                        <input class="form-control" placeholder="Image" type="text" formControlName="image">
                     </div>
                     <div class="error" *ngIf="recordForm.get('image').touched && recordForm.get('image').hasError('required')">
                         Image is required
                     </div>
                     <div class="form-group">
-                        <input class="form-control" placeholder="Label" type="text" formControlName="label" (change)="saveRecordChanges()">
+                        <input class="form-control" placeholder="Label" type="text" formControlName="label">
                     </div>
                     <div class="error" *ngIf="recordForm.get('label').touched && recordForm.get('label').hasError('required')">
                         Label is required
@@ -29,7 +29,7 @@
                         Minimum of 2 characters
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" rows="5" formControlName="content" (change)="saveRecordChanges()">                         
+                        <textarea class="form-control" rows="5" formControlName="content">                         
                      </textarea>
                     </div>
                     <div class="error" *ngIf="recordForm.get('content').touched && recordForm.get('content').hasError('required')">
@@ -38,31 +38,8 @@
                     <div class="error" *ngIf="recordForm.get('content').touched && recordForm.get('content').hasError('minlength')">
                         Minimum of 2 characters
                     </div>
-                    <button type="submit" class="btn btn-success" *ngIf="!record">Aanmaken verslag</button>
+                    <button type="submit" class="btn btn-success" [disabled]="!recordForm.valid" *ngIf="!record">Aanmaken verslag</button>
                 </form>
-            </nb-card-body>
-        </nb-card>
-    </div>
-    <div class="col-md-6" *ngIf="!isNew">
-        <nb-card>
-            <nb-card-header>Verslag Preview</nb-card-header>
-            <nb-card-body>
-                <article class="message">
-                    <div class="message-header">
-                        <p>{{(record | async)?.title}}</p>
-                    </div>
-                    <div class="message-body">
-                        <img [src]="(record | async)?.image" width="350px">
-                        <br>
-                        <p>{{ (record | async)?.content }}</p>
-                        <hr>
-                        <h4>List Price: {{ (record | async)?.label}}</h4>
-                    </div>
-                </article>
-                <h3>Form Values</h3>
-                <p>Form value:
-                    <br> {{ recordForm.value | json }}</p>
-                <p>Form status: {{ recordForm.status | json }}</p>
             </nb-card-body>
         </nb-card>
     </div>

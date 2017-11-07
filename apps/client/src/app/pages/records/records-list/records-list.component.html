@@ -1,5 +1,7 @@
 <div class="card-deck">
-    <record-row [record]="record" [currentRecord]="currentId" *ngFor="let record of recordList | async" [toolbar]="toolbar" (click)='clicked(record)' [class.selected]="isSelected(record)"
-      (mouseenter)="toggleToolbar(true,record)" (mouseleave)="toggleToolbar(false,record)">
+  <div class="col-6 col-sm-3" *ngFor="let record of recordList | async">
+    <record-row [record]="record" [currentRecord]="currentId" [toolbar]="toolbar" (click)='clicked(record)'
+      [class.selected]="isSelected(record)" (mouseenter)="toggleToolbar(true,record)" (mouseleave)="toggleToolbar(false,record)">
     </record-row>
   </div>
+</div>
