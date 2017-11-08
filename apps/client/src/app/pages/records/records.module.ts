@@ -11,6 +11,10 @@ import { NgModule } from '@angular/core';
 import { ThemeModule } from '../../@theme/theme.module';
 import { LoadingSpinnerComponent } from './../../pages/components/loading-spinner/loading-spinner.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { recordReducer } from './records.reducer';
+import { RecordsEffects } from './records.effects'
 
 const components = [
     RecordFormComponent,
@@ -19,15 +23,17 @@ const components = [
     RecordsContainerComponent,
     RecordsListComponent,
     RecordsComponent,
-    RecordsTrashComponent    
+    RecordsTrashComponent
 ];
 
 @NgModule({
     imports: [
         ThemeModule, FormsModule, ReactiveFormsModule, RecordsRoutingModule, SharedModule
+        , StoreModule.forFeature('record', recordReducer),
+        EffectsModule.forFeature([RecordsEffects])
     ],
     declarations: [
         ...components,
-    ]    
+    ]
 })
 export class RecordsModule { }

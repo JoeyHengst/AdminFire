@@ -1,5 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
-import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes, PreloadAllModules } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { SessionComponent } from './session/session.component';
 import { RegisterComponent } from './session/register/register.component';
@@ -33,6 +33,7 @@ const routes: Routes = [
 
 const config: ExtraOptions = {
   useHash: true,
+  preloadingStrategy : PreloadAllModules
 };
 
 @NgModule({
