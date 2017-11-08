@@ -44,7 +44,7 @@ export class NotesContainerComponent implements OnInit {
     ngOnInit() {
         this.notes$ = this.store.select(fromNotes.selectAll);
         this.notes$.subscribe(() => this.showSpinner = false);
-        this.store.dispatch(new actions.Query())
+        this.store.dispatch(new actions.Query(this.url))
     }
 
     noteWasSelected(note: Note): void {

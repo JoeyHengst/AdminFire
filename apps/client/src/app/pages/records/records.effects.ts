@@ -16,8 +16,9 @@ export class RecordsEffects {
   // Listen for the 'QUERY' action, must be the first effect you trigger
 
   @Effect() query$: Observable<Action> = this.actions$.ofType(actions.QUERY)
-    .switchMap(action => {
-        const ref = this.afs.collection<fromRecords.Record>('records')
+  .map((action: actions.Query) => action.name)  
+  .switchMap(action => {
+        const ref = this.afs.collection<fromRecords.Record>('records',ref => ref.orderBy('createdAt').where('pending_removal', '==', false).where('type', '==', action).where('archived','==', false))
         return ref.snapshotChanges().map(arr => { 
             return arr.map( doc => { 
                 const data = doc.payload.doc.data()

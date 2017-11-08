@@ -11,7 +11,7 @@ export const SUCCESS    = '[Records] Successful firestore write'
 
 export class Query implements Action {
     readonly type = QUERY;
-    constructor() { }
+    constructor(public name: string) { }
 }
 
 export class AddAll implements Action {

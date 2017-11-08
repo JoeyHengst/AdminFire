@@ -45,7 +45,7 @@ export class RecordsContainerComponent implements OnInit {
 
     ngOnInit() {
         this.records$ = this.store.select(fromRecords.selectAll);
-        this.store.dispatch(new actions.Query())
+        this.store.dispatch(new actions.Query(this.url));
     }
 
     recordWasSelected(record: Record): void {
