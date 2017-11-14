@@ -5,8 +5,7 @@ import * as firebase from 'firebase/app';
 import { User } from '../models/user.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
+import 'rxjs/operators';
 
 @Injectable()
 export class AuthService {

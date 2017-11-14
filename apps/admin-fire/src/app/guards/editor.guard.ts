@@ -3,9 +3,8 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../@core/auth.service';
 import * as _ from 'lodash';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
+import { tap , map, take } from 'rxjs/operators';
+
 @Injectable()
 export class EditorGuard implements CanActivate {
   constructor(private auth: AuthService, private router: Router) {}

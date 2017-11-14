@@ -6,8 +6,8 @@ import { User } from '../models/user.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { FirestoreService } from './../services/firestore.service';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
+import { of } from 'rxjs/observable/of';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {

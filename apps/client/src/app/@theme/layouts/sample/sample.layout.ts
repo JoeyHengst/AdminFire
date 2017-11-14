@@ -11,8 +11,7 @@ import {
 import { StateService } from '../../../@core/data/state.service';
 
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/withLatestFrom';
-import 'rxjs/add/operator/delay';
+import { withLatestFrom, delay } from 'rxjs/operators';
 
 // TODO: move layouts into the framework
 @Component({
